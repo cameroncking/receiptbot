@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  receiptbot:
+    build: .
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+    volumes:
+      - ./images:/app/images
+    command: ["./main"]
+

@@ -20,7 +20,7 @@ folders, making it easier to manage and retrieve them at the end of the year.
 
 ## Project Structure
 
-```
+```text
 receiptbot/
 ├── main.go
 ├── bot/
@@ -52,7 +52,7 @@ receiptbot/
    Create a `.env` file in the root of your project directory and add your
    Telegram bot token:
 
-   ```
+   ```sh
    TELEGRAM_BOT_TOKEN=your_telegram_bot_token_here
    ```
 
@@ -112,7 +112,7 @@ such as the Telegram bot token.
 
 Don't forget to edit .env to contain your own bot token!
 
-```
+```sh
 cp .env.sample .env
 ```
 
@@ -129,28 +129,25 @@ coding it.  The code is hot garbage.  It maintains all state in global
 variables and probably has massive flaws that will cause it to delete all of
 the files on your hard drive.
 
-It was my expressed intent that I would not use my brain AT ALL if I could help
-it.  I refused to even run `go get` to download packages until the LLM (Mistral
-Nemo) identified the error and gave me the command to paste.
+It was my plan not use my brain AT ALL if I could help
+it.  I wanted to see what this model was capable of on its own.  I refused to
+even run `go get` to download packages until the LLM (Mistral Nemo) identified
+the error and gave me the command to paste.  It didn't take me long to find its
+limits, but I got further than I expected.
 
 Here are my observations:
 
 - AI is great at standing up low-quality proof-of-concept code and scaffolding.
 - AI is really bad at business logic.  It's much concise (and easier IMHO) to
-express the business logic myself as code than to try and explain the nuances
-of my desired behavior to the LLM.
+express the business logic myself than to try and explain it to the LLM.
 - AI really struggled with bugfixing multiple overalpping issues.  I ran into
 an issue where I was trying to coax it to fix two bugs, and it could do so -
 but it would always cause the other bug to regress.  The fix only spanned 3
 lines in one file, but the LLM couldn't get both fixes to coexist.
 - AI recommends insecure practices by default.  I had to coach it on something
 as simple as moving api keys to .env.
-- AI generates garbage code with redundant lines.  Golang cares about unused
-imports, for example.  Every single file the LLM generated imported "log", but
-it didn't put any log messages anywhere.  Therefore I had to discuss this with
-the LLM for each file after showing it the error message, one file at a time.
-- AI generated poor-quality code.  This would never pass code review for
-anything more valuable than a proof of concept.
+- AI generates redundant imports and parameters.
+- AI generated code would not meet code review standards for a large project.
 
 It was fun and informative though, and I got a tool out of it.
 
@@ -162,4 +159,3 @@ Contributions are welcome! Please open an issue or submit a pull request.
 
 This project is licensed under the ISC License. See the [LICENSE](LICENSE) file
 for details.
-

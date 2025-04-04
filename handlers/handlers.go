@@ -45,17 +45,20 @@ func HandlePhoto(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 	userLastImageTimes[userID] = currentTime
 	// Process the caption if it exists
 	if message.Caption != "" {
-		HandleText(bot, message)
+		ProcessMemo(message.From.ID, message.Caption)
 	}
 }
 func HandleText(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 	userID := message.From.ID
+	ProcessMemo(userID, message.Text)
+}
+func ProcessMemo(userID int64, msg string) {
 	if userFolders[userID] == "" {
 		return
 	}
 	userHaveGotMemos[userID] = true
 	memoPath := filepath.Join(userFolders[userID], "memo.txt")
-	utils.AppendToFile(memoPath, message.Text)
+	utils.AppendToFile(memoPath, msg)
 }
 func isImage(mimeType string) bool {
 	return strings.HasPrefix(mimeType, "image/") || mimeType == "application/pdf"
